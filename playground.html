@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+  <head>
+    <title>A Go Playground</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+    <script src="/static/jquery-linedtextarea.js"></script>
+
+    <script src="/static/playground.js"></script>
+    <script src="/static/playground-embed.js"></script>
+
+    <link rel="shortcut icon" href="/static/favicon.ico" sizes="16x16 32x32" type="image/vnd.microsoft.icon">
+
+    <script>
+    $(document).ready(function() {
+      playground({
+        'codeEl':       '#code',
+        'outputEl':     '#output',
+        'runEl':        '#run',
+        'fmtEl':        '#fmt',
+        'fmtImportEl':  '#imports',
+        
+        'shareEl':      '#share',
+        'shareURLEl':   '#shareURL',
+        
+        'enableHistory': true
+      });
+      playgroundEmbed({
+        'codeEl':       '#code',
+        
+        'shareEl':      '#share',
+        
+        'embedEl':      '#embed',
+        'embedLabelEl': '#embedLabel',
+        'embedHTMLEl':  '#shareURL'
+      });
+      $('#code').linedtextarea();
+      
+      $('#code').attr('wrap', 'off');
+      var about = $('#about');
+      about.click(function(e) {
+        if ($(e.target).is('a')) {
+          return;
+        }
+        about.hide();
+      });
+      $('#aboutButton').click(function() {
+        if (about.is(':visible')) {
+          about.hide();
+          return;
+        }
+        about.show();
+      })
+      
+      if (readCookie('playgroundImports') == 'true')
+        $('#imports').attr('checked','checked');
+      $('#imports').change(function() {
+        createCookie('playgroundImports', $(this).is(':checked') ? 'true' : '');
+      });
+      
+      if (window.trackEvent) {
+        $('#run').click(function() {
+          window.trackEvent('playground', 'click', 'run-button');
+        });
+        $('#share').click(function() {
+          window.trackEvent('playground', 'click', 'share-button');
+        });
+      }
+    });
+
+    function createCookie(name, value) {
+      document.cookie = name+"="+value+"; path=/";
+    }
+
+    function readCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      }
+      return null;
+    }
+    </script>
+  </head>
+  <body itemscope itemtype="http://schema.org/CreativeWork">
+    <div id="banner">
+      <div id="head" itemprop="name">A Go Playground</div>
+      <div id="controls">
+        <input type="button" value="Run" id="run">
+        <input type="button" value="Format" id="fmt">
+        <div id="importsBox">
+          <label title="Rewrite imports on Format">
+            <input type="checkbox" id="imports">
+            Imports
+          </label>
+        </div>
+        
+        <input type="button" value="Share" id="share">
+        <input type="text" id="shareURL">
+        <label id="embedLabel">
+          <input type="checkbox" id="embed">
+          embed
+        </label>
+        
+      </div>
+      <div id="aboutControls">
+        <input type="button" value="About" id="aboutButton">
+      </div>
+    </div>
+    <div id="wrap">
+      <textarea itemprop="description" id="code" name="code" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false">package main
+
+import &#34;fmt&#34;
+
+func main() {
+	fmt.Println(&#34;Hello, playground&#34;)
+}
+</textarea>
+    </div>
+    <div id="output"></div>
+    <img itemprop="image" src="/static/gopher.png" style="display:none">
+    <div id="about">
+      <p><b>About this Playground</b></p>
+      <p>
+        This is a fork of the <a href="https://play.golang.org/">Go
+        Playground</a> that communicates with an external compilation service
+        that receives a Go program, compiles, links and runs the program inside
+        a controlled machine, then returns the output.
+      </p>
+      <p>
+        There are limitations to the programs than can be run in this
+        playground, but that really depends on the external compilation
+        service. Chances are you're not going to be allowed to write to the
+        filesystem or to use the network.
+      </p>
+      <p>
+        You can run an install your own playground that runs under your own
+        restrictions, check out the Github's <a
+        href="https://github.com/xiam/go-playground">xiam/go-playground</a>
+        repository.
+      </p>
+    </div>
+  </body>
+</html>
