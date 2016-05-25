@@ -109,10 +109,12 @@ function HTTPTransport() {
         data: {'version': 2, 'body': body},
         dataType: 'json',
    success: function(data, textStatus, request){
-	idfunc(request.responseText["_id"]);
+	var id = request.responseText["_id"];
+	idfunc(id);
    },
    error: function (request, textStatus, errorThrown) {
-	idfunc(request.responseText["_id"]);
+	var id = request.responseText["_id"];
+	idfunc(id);
    }
  });
 
