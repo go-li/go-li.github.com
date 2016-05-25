@@ -118,7 +118,7 @@
 //	var d = document.getElementById("world");
 //	alert(d.innerHTML)
 
-    bindToggles(".toggle");
+//    bindToggles(".toggle");
     setupInlinePlayground();
 
 

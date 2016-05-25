@@ -1,7 +1,7 @@
 .toggleButton { cursor: pointer; }
 .toggle .collapsed { display: block; }
-.toggle .expanded { display: none; }
-.toggleVisible .collapsed { display: none; }
+.toggle .expanded { display: block; }
+.toggleVisible .collapsed { display: block; }
 .toggleVisible .expanded { display: block; }
 
 /* example and drop-down playground */
