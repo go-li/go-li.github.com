@@ -111,8 +111,16 @@
   }
 
   $(document).ready(function() {
-    initGoPlayground();
+
+
+ //   initGoPlayground();
+
+//	var d = document.getElementById("world");
+//	alert(d.innerHTML)
+
     bindToggles(".toggle");
     setupInlinePlayground();
+
+
   });
 })();
