@@ -93,7 +93,8 @@ function HTTPTransport() {
         success: function(data) {
 		alert(data);
         },
-        error: function() {
+        error: function(data) {
+		alert(data);
         }
       });
 
