@@ -1,0 +1,78 @@
+.toggleButton { cursor: pointer; }
+.toggle .collapsed { display: block; }
+.toggle .expanded { display: none; }
+.toggleVisible .collapsed { display: none; }
+.toggleVisible .expanded { display: block; }
+
+/* example and drop-down playground */
+div.play {
+  padding: 0 20px 40px 20px;
+}
+div.play pre,
+div.play textarea,
+div.play .lines {
+  padding: 0;
+  margin: 0;
+  font-family: Menlo, monospace;
+  font-size: 14px;
+}
+div.play .input {
+  padding: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+div.play .input textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+
+  overflow: hidden;
+}
+div#playground .input textarea {
+  overflow: auto;
+  resize: auto;
+}
+div.play .output {
+  border-top: none !important;
+
+  padding: 10px;
+  max-height: 200px;
+  overflow: auto;
+}
+div.play .output pre {
+  padding: 0;
+  border-radius: 0;
+  background-color: #333;
+  color: #fff;
+}
+div.play .input,
+div.play .input textarea {
+  background: #f0f0f0;
+}
+div.play .input,
+div.play .output {
+  border: 1px solid #eee;
+}
+div.play .output {
+  background-color: #333;
+  color: #fff;
+}
+div.play .buttons {
+  float: right;
+  padding: 8px 0 8px 0;
+  text-align: right;
+}
+div.play .buttons a {
+  height: 16px;
+  margin-left: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+.output .stderr {
+  color: #e00;
+}
+.output .system {
+  color: #999;
+}
