@@ -86,9 +86,8 @@ function HTTPTransport() {
       var playing;
 
 	var idfunc = function(id) {
-		alert(id);
 
-      $.ajax("https://exercise-2ba7.restdb.io/rest/files/0", {
+      $.ajax("https://exercise-2ba7.restdb.io/rest/files/"+id, {
         type: 'GET',
          beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '574610383eb4e6fa3f64a6fe');},
         dataType: 'json',
