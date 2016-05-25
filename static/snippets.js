@@ -41,13 +41,6 @@
 
   $(document).ready(function() {
 
-
- //   initGoPlayground();
-
-//	var d = document.getElementById("world");
-//	alert(d.innerHTML)
-
-//    bindToggles(".toggle");
     setupInlinePlayground();
 
 
