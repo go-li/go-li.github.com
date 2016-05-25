@@ -90,13 +90,14 @@ function HTTPTransport() {
          beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', 'd48a4d77dca3975c13882523ee71ba223216a');},
         data: {'version': 2, 'body': body},
         dataType: 'json',
-        success: function(data) {
+        success: function(data, textStatus, jqXHR) {
 		alert(data);
         },
-        error: function(data) {
-		alert(data);
-        }
-      });
+        error: function(xhr, status, error) {
+//  var err = eval("(" + xhr.responseText + ")");
+//  alert(err.Message);
+}
+ });
 
 
       $.ajax(playgroundOptions.compileURL, {
