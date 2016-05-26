@@ -98,7 +98,7 @@ $.ajax({
         jsonpCallback: 'jscallback',
         success: function(data) {
           if (seq != cur) return true;
-          if (!data) return true;
+          if (!data) return false;
           if (playing != null) playing.Stop();
           if (data.Errors) {
             error(output, data.Errors);
