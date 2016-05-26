@@ -86,7 +86,7 @@ function HTTPTransport() {
       var playing;
 
 	var idget = function idget(id,retry) {
-	if (retry == 5) {
+	if (retry == 10) {
 
           		error(output, 'Error communicating with remote server.');
 			return true;
@@ -157,6 +157,48 @@ $.ajax({
 //		alert("timeout");
 		die = idget(id,5);
 	}, 6000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,6);
+	}, 7000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,7);
+	}, 8000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,8);
+	}, 9000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,9);
+	}, 10000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,10);
+	}, 11000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,11);
+	}, 12000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,12);
+	}, 13000);
 
 
 
