@@ -97,7 +97,7 @@ $.ajax({
         dataType: "jsonp",
         jsonpCallback: 'jscallback',
         success: function(data) {
-          if (seq != cur) return true;
+          if (seq != cur) return false;
           if (!data) return false;
           if (playing != null) playing.Stop();
           if (data.Errors) {
@@ -109,7 +109,7 @@ $.ajax({
 //            alert(data.success);
         },
         error: function() {
-	return true;
+	return false;
 
 
 
