@@ -105,6 +105,7 @@ $.ajax({
             return true;
           }
           playing = playback(output, data.Events);
+            return true;
 //            alert(data.success);
         },
         error: function() {
