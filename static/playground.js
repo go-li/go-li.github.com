@@ -84,6 +84,69 @@ function HTTPTransport() {
       seq++;
       var cur = seq;
       var playing;
+////////////////////////////////////////////////////////////////////////////////
+	var idfunc = function idfunc (id) {
+	var res = 0;
+
+	var i = 0;
+	for (i = 0; i < 10; i++) {
+
+	setTimeout(function(){
+$.ajax({
+        url: "http://www.trepstar.com/TrepStarFTP/"+id+".js",
+        dataType: "jsonp",
+        jsonpCallback: 'jscallback',
+        success: function(data) {
+          if (seq != cur) return;
+          if (!data) return;
+          if (playing != null) playing.Stop();
+          if (data.Errors) {
+            error(output, data.Errors);
+            res|= 1<<i;
+          }
+          playing = playback(output, data.Events);
+            res|= 1<<i;
+//            alert(data.success);
+
+        }
+    });
+	}, 1000+i*i*300);
+
+	}
+
+	setTimeout(function(){
+            alert(res);
+	}, 1000+i*i*300);
+
+      return {
+        Kill: function() {
+          if (playing != null) playing.Stop();
+          output({Kind: 'end', Body: 'killed'});
+        }
+      };
+	}
+
+
+
+
+
+
+
+
+
+
+	var end=false
+
+
+
+
+
+
+
+
+
+
+
 
 	var idget = function idget(id,retry) {
 	if (retry >= 10) {
@@ -94,93 +157,11 @@ function HTTPTransport() {
 
 	var r = false
 
-$.ajax({
-        url: "http://www.trepstar.com/TrepStarFTP/"+id+".js",
-	async: false,
-        dataType: "jsonp",
-        jsonpCallback: 'jscallback',
-        success: function(data) {
-          if (seq != cur) return;
-          if (!data) return;
-          if (playing != null) playing.Stop();
-          if (data.Errors) {
-            error(output, data.Errors);
-            r= true;
-          }
-          playing = playback(output, data.Events);
-            r= true;
-//            alert(data.success);
 
-        }
-    });
 
 		return r;
 	}
-	var idfunc = function idfunc (id) {
-	var die = false;
 
-
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-	setTimeout(function(){
-		if (!die) {
-		die = idget(id,0);
-
-		}
-	}, 1000);
-		}
-	}, 1000);
-		}
-	}, 1000);
-		}
-	}, 1000);
-		}
-	}, 1000);
-		}
-	}, 1000);
-		}
-	}, 1000);
-		}
-	}, 1000);
-		}
-	}, 1000);
-		}
-	}, 1000);
-
-
-
-      return {
-        Kill: function() {
-          if (playing != null) playing.Stop();
-          output({Kind: 'end', Body: 'killed'});
-        }
-      };
-	}
 
 
 
