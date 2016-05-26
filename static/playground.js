@@ -86,7 +86,7 @@ function HTTPTransport() {
       var playing;
 
 	var idget = function idget(id,retry) {
-	if (retry == 10) {
+	if (retry >= 10) {
 
           		error(output, 'Error communicating with remote server.');
 			return true;
@@ -110,6 +110,7 @@ $.ajax({
           playing = playback(output, data.Events);
             r= true;
 //            alert(data.success);
+
         }
     });
 
@@ -117,86 +118,59 @@ $.ajax({
 	}
 	var idfunc = function idfunc (id) {
 	var die = false;
+
+
 	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
+		if (!die) {
 		die = idget(id,0);
+	setTimeout(function(){
+		if (!die) {
+		die = idget(id,0);
+	setTimeout(function(){
+		if (!die) {
+		die = idget(id,0);
+	setTimeout(function(){
+		if (!die) {
+		die = idget(id,0);
+	setTimeout(function(){
+		if (!die) {
+		die = idget(id,0);
+	setTimeout(function(){
+		if (!die) {
+		die = idget(id,0);
+	setTimeout(function(){
+		if (!die) {
+		die = idget(id,0);
+	setTimeout(function(){
+		if (!die) {
+		die = idget(id,0);
+	setTimeout(function(){
+		if (!die) {
+		die = idget(id,0);
+	setTimeout(function(){
+		if (!die) {
+		die = idget(id,0);
+
+		}
 	}, 1000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,1);
-	}, 2000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,2);
-	}, 3000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,3);
-	}, 4000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,4);
-	}, 5000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,5);
-	}, 6000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,6);
-	}, 7000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,7);
-	}, 8000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,8);
-	}, 9000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,9);
-	}, 10000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,10);
-	}, 11000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,11);
-	}, 12000);
-	setTimeout(function(){
-		if (die)
-			return;
-//		alert("timeout");
-		die = idget(id,12);
-	}, 13000);
-
-
+		}
+	}, 1000);
+		}
+	}, 1000);
+		}
+	}, 1000);
+		}
+	}, 1000);
+		}
+	}, 1000);
+		}
+	}, 1000);
+		}
+	}, 1000);
+		}
+	}, 1000);
+		}
+	}, 1000);
 
 
 
