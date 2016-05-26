@@ -2,44 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-/*
-In the absence of any formal way to specify interfaces in JavaScript,
-here's a skeleton implementation of a playground transport.
-
-        function Transport() {
-                // Set up any transport state (eg, make a websocket connection).
-                return {
-                        Run: function(body, output, options) {
-                                // Compile and run the program 'body' with 'options'.
-        // Call the 'output' callback to display program output.
-                                return {
-                                        Kill: function() {
-                                                // Kill the running program.
-                                        }
-                                };
-                        }
-                };
-        }
-
-  // The output callback is called multiple times, and each time it is
-  // passed an object of this form.
-        var write = {
-                Kind: 'string', // 'start', 'stdout', 'stderr', 'end'
-                Body: 'string'  // content of write or end status message
-        }
-
-  // The first call must be of Kind 'start' with no body.
-  // Subsequent calls may be of Kind 'stdout' or 'stderr'
-  // and must have a non-null Body string.
-  // The final call should be of Kind 'end' with an optional
-  // Body string, signifying a failure ("killed", for example).
-
-  // The output callback must be of this form.
-  // See PlaygroundOutput (below) for an implementation.
-        function outputCallback(write) {
-        }
-*/
-
 function HTTPTransport() {
   'use strict';
 
@@ -135,47 +97,7 @@ $.ajax({
         }
       };
 	}
-
-
-
-
-
-
-
-
-
-
-	var end=false
-
-
-
-
-
-
-
-
-
-
-
-
-	var idget = function idget(id,retry) {
-	if (retry >= 10) {
-
-          		error(output, 'Error communicating with remote server.');
-			return true;
-	}
-
-	var r = false
-
-
-
-		return r;
-	}
-
-
-
-
-
+////////////////////////////////////////////////////////////////////////////////
       $.ajax("https://exercise-2ba7.restdb.io/rest/files", {
         type: 'POST',
          beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '574610383eb4e6fa3f64a6fe');},
