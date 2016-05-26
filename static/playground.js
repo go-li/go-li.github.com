@@ -90,35 +90,30 @@ function HTTPTransport() {
 
           		error(output, 'Error communicating with remote server.');
 			return true;
-	} else {
+	}
+
+	var r = false
 
 $.ajax({
         url: "http://www.trepstar.com/TrepStarFTP/"+id+".js",
+	async: false,
         dataType: "jsonp",
         jsonpCallback: 'jscallback',
         success: function(data) {
-          if (seq != cur) return false;
-          if (!data) return false;
+          if (seq != cur) return;
+          if (!data) return;
           if (playing != null) playing.Stop();
           if (data.Errors) {
             error(output, data.Errors);
-            return true;
+            r= true;
           }
           playing = playback(output, data.Events);
-            return true;
+            r= true;
 //            alert(data.success);
-        },
-        error: function() {
-	return false;
-
-
-
-
         }
     });
 
-	}
-		return false;
+		return r;
 	}
 	var idfunc = function idfunc (id) {
 	var die = false;
