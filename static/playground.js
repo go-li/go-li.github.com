@@ -92,6 +92,11 @@ function HTTPTransport() {
 	for (i = 0; i < 10; i++) {
 
 	setTimeout(function(){
+
+	if (res !=0) {
+		return;
+	}
+
 $.ajax({
         url: "http://www.trepstar.com/TrepStarFTP/"+id+".js",
         dataType: "jsonp",
@@ -115,6 +120,11 @@ $.ajax({
 	}
 
 	setTimeout(function(){
+	if (res !=0) {
+		return;
+	}
+
+          		error(output, 'Error communicating with remote server.');
             alert(res);
 	}, 1000+i*i*300);
 
