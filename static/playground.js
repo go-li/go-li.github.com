@@ -85,22 +85,93 @@ function HTTPTransport() {
       var cur = seq;
       var playing;
 
-	var idfunc = function(id) {
+	var idget = function idget(id,retry) {
+	if (retry == 5) {
 
-      $.ajax("https://exercise-2ba7.restdb.io/rest/files/"+id, {
-        type: 'GET',
-         beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '574610383eb4e6fa3f64a6fe');},
-        dataType: 'json',
-   success: function(data, textStatus, request){
-	alert("DONE");
-   },
-   error: function (request, textStatus, errorThrown) {
-	alert("DONE");
-   }
- });
+          		error(output, 'Error communicating with remote server.');
+			return true;
+	} else {
 
+$.ajax({
+        url: "http://www.trepstar.com/TrepStarFTP/"+id+".js",
+        dataType: "jsonp",
+        jsonpCallback: 'jscallback',
+        success: function(data) {
+          if (seq != cur) return true;
+          if (!data) return true;
+          if (playing != null) playing.Stop();
+          if (data.Errors) {
+            error(output, data.Errors);
+            return true;
+          }
+          playing = playback(output, data.Events);
+//            alert(data.success);
+        },
+        error: function() {
+	return true;
+
+
+
+
+        }
+    });
 
 	}
+		return false;
+	}
+	var idfunc = function idfunc (id) {
+	var die = false;
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,0);
+	}, 1000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,1);
+	}, 2000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,2);
+	}, 3000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,3);
+	}, 4000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,4);
+	}, 5000);
+	setTimeout(function(){
+		if (die)
+			return;
+//		alert("timeout");
+		die = idget(id,5);
+	}, 6000);
+
+
+
+
+
+      return {
+        Kill: function() {
+          if (playing != null) playing.Stop();
+          output({Kind: 'end', Body: 'killed'});
+        }
+      };
+	}
+
+
+
 
       $.ajax("https://exercise-2ba7.restdb.io/rest/files", {
         type: 'POST',
@@ -117,30 +188,6 @@ function HTTPTransport() {
 
 
 
-      $.ajax(playgroundOptions.compileURL, {
-        type: 'POST',
-        data: {'version': 2, 'body': body},
-        dataType: 'json',
-        success: function(data) {
-          if (seq != cur) return;
-          if (!data) return;
-          if (playing != null) playing.Stop();
-          if (data.Errors) {
-            error(output, data.Errors);
-            return;
-          }
-          playing = playback(output, data.Events);
-        },
-        error: function() {
-          error(output, 'Error communicating with remote server.');
-        }
-      });
-      return {
-        Kill: function() {
-          if (playing != null) playing.Stop();
-          output({Kind: 'end', Body: 'killed'});
-        }
-      };
     }
   };
 }
