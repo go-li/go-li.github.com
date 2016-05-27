@@ -51,7 +51,7 @@ function HTTPTransport() {
 	var res = 0;
 
 	var i = 0;
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < 6; i++) {
 
 	setTimeout(function(){
 
@@ -87,7 +87,7 @@ $.ajax({
           }
         }
     });
-	}, 1000+i*i*300);
+	}, i*i*400);
 
 	}
 
@@ -100,7 +100,7 @@ $.ajax({
 /*
             alert(res);
 */
-	}, 1000+i*i*300);
+	}, i*i*400);
 
       return {
         Kill: function() {
