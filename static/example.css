@@ -34,12 +34,21 @@ div#playground .input textarea {
   overflow: auto;
   resize: auto;
 }
+.wrap {
+  width:100%;
+  min-height: 3em;
+  background-color: #333;
+  margin:0;padding:0;
+  overflow:hidden;
+
+}
 div.play .output {
   border-top: none !important;
+  float:left;
 
   padding: 10px;
   max-height: 200px;
-  overflow: auto;
+
 }
 div.play .output pre {
   padding: 0;
@@ -53,7 +62,7 @@ div.play .input textarea {
 }
 div.play .input,
 div.play .output {
-  border: 1px solid #eee;
+  border: 1px solid #333;
 }
 div.play .output {
   background-color: #333;
@@ -63,12 +72,15 @@ div.play .buttons {
   float: right;
   padding: 8px 0 8px 0;
   text-align: right;
+
 }
 div.play .buttons a {
   height: 16px;
   margin-left: 5px;
   padding: 10px;
   cursor: pointer;
+  color:white;
+  background:#666;
 }
 .output .stderr {
   color: #e00;

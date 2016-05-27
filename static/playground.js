@@ -87,7 +87,9 @@ $.ajax({
 	}
 
           		error(output, 'Error communicating with remote server.');
+/*
             alert(res);
+*/
 	}, 1000+i*i*300);
 
       return {
