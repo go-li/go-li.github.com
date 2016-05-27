@@ -110,10 +110,13 @@ $.ajax({
       };
 	}
 ////////////////////////////////////////////////////////////////////////////////
+ var x = document.getElementById("compiler").selectedIndex;
+var compiler = (document.getElementsByTagName("option")[x].value);
+
       $.ajax("https://exercise-2ba7.restdb.io/rest/files", {
         type: 'POST',
          beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '574610383eb4e6fa3f64a6fe');},
-        data: {'version': 2, 'body': body},
+        data: {'version': 2, 'body': body, 'compiler':compiler},
         dataType: 'json',
    success: function(data, textStatus, request){
 	idfunc(JSON.parse(request.responseText)._id);
