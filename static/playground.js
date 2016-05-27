@@ -111,7 +111,7 @@ $.ajax({
 	}
 ////////////////////////////////////////////////////////////////////////////////
  var x = document.getElementById("compiler").selectedIndex;
-var compiler = (document.getElementsByTagName("option")[x].value);
+var compiler = parseInt(document.getElementsByTagName("option")[x].value);
 
       $.ajax("https://exercise-2ba7.restdb.io/rest/files", {
         type: 'POST',
