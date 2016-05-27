@@ -64,17 +64,20 @@ $.ajax({
         dataType: "jsonp",
         jsonpCallback: 'jscallback',
         success: function(data) {
+	  if (res !=0) {
+		return;
+	  }
           if (seq != cur) return;
           if (!data) return;
           if (playing != null) playing.Stop();
           if (data.Errors) {
             error(output, data.Errors);
             res|= 1<<i;
-          }
+          } else {
           playing = playback(output, data.Events);
             res|= 1<<i;
 //            alert(data.success);
-
+          }
         }
     });
 	}, 1000+i*i*300);
