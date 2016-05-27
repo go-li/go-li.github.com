@@ -55,6 +55,10 @@ function HTTPTransport() {
 
 	setTimeout(function(){
 
+	if (seq !=cur) {
+		return;
+	}
+
 	if (res !=0) {
 		return;
 	}
@@ -64,6 +68,9 @@ $.ajax({
         dataType: "jsonp",
         jsonpCallback: 'jscallback',
         success: function(data) {
+	  if (seq !=cur) {
+		return;
+	  }
 	  if (res !=0) {
 		return;
 	  }

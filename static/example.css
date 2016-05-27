@@ -74,7 +74,7 @@ div.play .buttons {
   text-align: right;
 
 }
-div.play .buttons a {
+div.play .buttons a, div.play .buttons span {
   height: 16px;
   margin-left: 5px;
   padding: 10px;
