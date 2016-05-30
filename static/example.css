@@ -124,6 +124,6 @@ div.play .buttons a, div.play .buttons span {
   wrap: off;
   float: right;
 
-  background-color: #f0f0f0;
+  background: #f0f0f0 url("../pground.jpg") no-repeat top right;
   color:black;
 }
