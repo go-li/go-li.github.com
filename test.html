@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Grown up's playground</title>
+    <title>Playground for grown-ups</title>
     <meta charset="utf-8" />
 
     <script src="ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="static/jquery-linedtextarea.js"></script>
     <link href="static/example.css" rel="stylesheet" type="text/css" />
     <script src="static/playground.js"></script>
     <script src="static/snippets.js"></script>
 
     <script>
-    goPlaygroundOptions({
-      'shareRedirect': '//play.golang.mx/p/',
-      'shareURL': '//play.golang.mx/share',
-      'compileURL': '//play.golang.mx/compile',
-      'fmtURL': '//play.golang.mx/fmt',
-      'shareOpenNewWindow': true
+     goPlaygroundOptions({
+       'shareOpenNewWindow': true
+     });
+    $(document).ready(function() {
+      $('#code').linedtextarea();
+
     });
     </script>
   </head>
   <body id="world">
 
-    <div class="toggle"> <div class="collapsed">   <p class="exampleHeading toggleButton"></p> </div> <div class="expanded">   <p class="exampleHeading toggleButton"></p>     <div class="play">       <div class="input"><textarea spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" class="go-playground-snippet code" data-title="Example (Hello Playground!)">package main
+    <div class="toggle"> <div class="collapsed">   <p class="exampleHeading toggleButton"></p> </div> <div class="expanded">   <p class="exampleHeading toggleButton"></p>     <div class="play"> 
+
+      <div class="input">
+<textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off" class="go-playground-snippet code" data-title="Example (Hello Playground!)">package main
 
 import (
 	"fmt"
@@ -29,7 +33,10 @@ import (
 
 func main() {
 	fmt.Printf("Hello Playground!")
-}</textarea></div>     <div class="wrap">  <div class="output"></div>       <div class="buttons">
+}</textarea></div>  
+
+
+   <div class="wrap">  <div class="output"></div>       <div class="buttons">
 
 
 

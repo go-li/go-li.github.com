@@ -7,6 +7,9 @@
  */
 (function($) {
   $.fn.linedtextarea = function() {
+
+
+
     /*
      * Helper function to make sure the line numbers are always kept up to
      * the current system
@@ -22,7 +25,6 @@
     return this.each(function() {
       var lineNo = 1;
       var textarea = $(this);
-
       /* Wrap the text area in the elements we need */
       textarea.wrap("<div class='linedtextarea' style='height:100%; overflow:hidden'></div>");
       textarea.width("97%");
