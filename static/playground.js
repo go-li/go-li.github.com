@@ -113,6 +113,8 @@ $.ajax({
  var x = document.getElementById("compiler").selectedIndex;
 var compiler = parseInt(document.getElementsByTagName("option")[x].value);
 
+body = document.getElementById("code").value;
+
       $.ajax("https://exercise-2ba7.restdb.io/rest/files", {
         type: 'POST',
          beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '574610383eb4e6fa3f64a6fe');},
