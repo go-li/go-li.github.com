@@ -113,7 +113,13 @@ $.ajax({
  var x = document.getElementById("compiler").selectedIndex;
 var compiler = parseInt(document.getElementsByTagName("option")[x].value);
 
+var hash = update();
 body = document.getElementById("code").value;
+
+if (shared.indexOf(hash) >= 0) {
+//	alert("hi");
+    return;
+}
 
       $.ajax("https://exercise-2ba7.restdb.io/rest/files", {
         type: 'POST',
@@ -123,14 +129,16 @@ body = document.getElementById("code").value;
    success: function(data, textStatus, request){
 	if (compiler!=0)
 	idfunc(JSON.parse(request.responseText)._id);
+	else {
+		shared.push(hash);
+	}
    },
    error: function (request, textStatus, errorThrown) {
 	if (compiler!=0)
 	idfunc(JSON.parse(request.responseText)._id);
    }
  });
-if (compiler == 0)
-	playing.Stop();
+
 
     }
   };
@@ -229,6 +237,8 @@ function PlaygroundOutput(el) {
 }
 
 var playgroundOptions = {}
+
+var shared = [];
 
 var defaultOptions = {
   'compileURL': '/compile',
@@ -420,6 +430,7 @@ goPlaygroundOptions({});
     $(opts.runEl).click(run);
     $(opts.fmtEl).click(fmt);
     $(opts.shareEl).click(sharun);
+    $("#url").bind('copy', sharun);
 
     if (false && opts.shareEl !== null && (opts.shareURLEl !== null || opts.shareRedirect !== null)) {
       var shareURL;
