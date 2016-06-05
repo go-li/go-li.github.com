@@ -1,5 +1,5 @@
 * {	border:0;margin:0 !important;padding:0 !important;}
-html,body { height:100%;background-color:black; }
+html,body { height:100%;background-color:black;  overflow: hidden; }
 .toggleButton { cursor: pointer; }
 .toggle .collapsed { display: block; }
 .toggle .expanded { display: block; }
@@ -36,17 +36,16 @@ div#playground .input textarea {
 }
 .wrap {
   width:100%;
-  min-height: 3em;
   background-color: #333;
   overflow:hidden;
-
+  overflow-y: auto;
+  height: 14vh !important;
 }
 div.play .output {
   border-top: none !important;
   float:left;
-
   padding: 10px !important;
-  max-height: 200px;
+  height: 14vh !important;
 
 }
 div.play .output pre {
@@ -69,8 +68,11 @@ div.play .output {
 div.play .buttons {
   float: right;
   padding: 8px 0 8px 0 !important;
+  margin: 10px !important;
   text-align: right;
+  position:absolute;
 
+  right:30px;
 }
 div.play .buttons a {
   cursor: pointer;
