@@ -384,6 +384,14 @@ goPlaygroundOptions({});
       loading();
       running = transport.Run(body(), highlightOutput(PlaygroundOutput(output[0])));
     }
+    function sharun() {
+      $(opts.outputEl).fadeIn();
+	var val = document.getElementById('compiler').value;
+
+	document.getElementById('compiler').value =0;
+      running = transport.Run(body(), highlightOutput(PlaygroundOutput(output[0])));
+	document.getElementById('compiler').value = val;
+    }
 
     function fmt() {
       loading();
@@ -408,8 +416,9 @@ goPlaygroundOptions({});
 
     $(opts.runEl).click(run);
     $(opts.fmtEl).click(fmt);
+    $(opts.shareEl).click(sharun);
 
-    if (opts.shareEl !== null && (opts.shareURLEl !== null || opts.shareRedirect !== null)) {
+    if (false && opts.shareEl !== null && (opts.shareURLEl !== null || opts.shareRedirect !== null)) {
       var shareURL;
       if (opts.shareURLEl) {
         shareURL = $(opts.shareURLEl).hide();
