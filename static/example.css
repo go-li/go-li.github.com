@@ -8,15 +8,13 @@ html,body { height:100%;background-color:black;  overflow: hidden; }
 
 /* example and drop-down playground */
 div.play {
-
+  font-family: Arial, sans;
 }
 div.play pre,
 div.play textarea,
 div.play .lines {
   padding: 0;
   margin: 0;
-  font-family: Menlo, monospace;
-  font-size: 14px;
 }
 div.play .input {
   overflow: hidden;
@@ -75,12 +73,19 @@ div.play .buttons {
   right:30px;
 }
 div.play .buttons a {
+  border: 0px solid #666 !important;
+  border-width: 0px 10px !important;
+
   cursor: pointer;
+}
+div.play .buttons span select {
+  padding:0 10px !important;
+  margin:0 10px  !important;
 }
 div.play .buttons a, div.play .buttons span {
   height: 16px;
-  margin-left: 5px !important;
-  padding: 10px !important;
+  margin: 0px !important;
+  padding: 10px 0px !important;
   color:white;
   background:#666;
 }
