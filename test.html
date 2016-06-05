@@ -18,8 +18,33 @@
       $('#code').linedtextarea();
 
 	var hash = window.location.hash.substring(1);
-	if (hash.length != 0)
-		alert(hash);
+	if (hash.length == 8) {
+//		alert(hash);
+
+	var res = 0;
+$.ajax({
+        url: "https://raw.githubusercontent.com/go-li/samplecache/master/"+hash+".js",
+        dataType: "jsonp",
+        jsonpCallback: 'jscallback',
+        success: function(data) {
+	  if (res !=0) {
+		return;
+	  }
+          if (!data) return;
+          if (data.Errors) {
+ //           alert(data.Errors);
+            res|= 1<<i;
+          } else {
+		document.getElementById("code").value = data.Code;
+ //          alert(data.Code);
+            res|= 1<<i;
+
+          }
+        }
+    });
+
+	}
+
     });
     </script>
 
