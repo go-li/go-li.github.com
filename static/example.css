@@ -151,3 +151,7 @@ div.play .buttons a, div.play .buttons span {
     height:85vh;
   background-color: #ccc;
 }
+#url {
+font-family:mono;
+width:22em;
+}

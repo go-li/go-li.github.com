@@ -9,13 +9,15 @@
     <link href="static/example.css" rel="stylesheet" type="text/css" />
     <script src="static/playground.js"></script>
     <script src="static/snippets.js"></script>
-
+    <script src="static/sha256.js"></script>
     <script>
      goPlaygroundOptions({
        'shareOpenNewWindow': true
      });
     $(document).ready(function() {
       $('#code').linedtextarea();
+
+	update();
 
 	var hash = window.location.hash.substring(1);
 	if (hash.length == 8) {
@@ -31,13 +33,13 @@ $.ajax({
 		return;
 	  }
           if (!data) return;
+	var sha = sha256(data.Code).substring(0,8);
           if (data.Errors) {
  //           alert(data.Errors);
-            res|= 1<<i;
-          } else {
+            res|= 1;
+          } else if (sha == hash) {
 		document.getElementById("code").value = data.Code;
- //          alert(data.Code);
-            res|= 1<<i;
+            res|= 1;
 
           }
         }
@@ -46,6 +48,11 @@ $.ajax({
 	}
 
     });
+    function update() {
+		document.getElementById("url").value =
+		"http://tsoh.host/test.html#" +
+		sha256(document.getElementById("code").value).substring(0,8);
+    }
     </script>
 
   </head>
@@ -54,7 +61,7 @@ $.ajax({
     <div class="toggle"> <div class="collapsed">   <p class="exampleHeading toggleButton"></p> </div> <div class="expanded">   <p class="exampleHeading toggleButton"></p>     <div class="play"> 
 
     <div id="wrap" class="input">
-      <textarea itemprop="description" id="code" name="code" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false">package main
+      <textarea itemprop="description" id="code" name="code" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" onchange="update()" onkeyup="update()">package main
 
 import &#34;fmt&#34;
 
@@ -66,10 +73,7 @@ func main() {
 
    <div class="wrap">  <div class="output"></div>       <div class="buttons">
 
-
-
-
-      <a class="run" title="Run this code [shift-enter]">Run</a>
+<a class="run" title="Run this code [shift-enter]">Run</a>
 
 <!--
        <a class="fmt" title="Format this code">Format</a>         <a class="share" title="Share this code">Share</a>
@@ -92,6 +96,10 @@ func main() {
   <option value="8073">73</option>
 -->
 </select>
+</span>&nbsp;<span><a class="run" title="Share this code">Share:</a>
+
+<input type="text" id="url" readonly="readonly" />&nbsp;
+
 </span>
 
  </div>
