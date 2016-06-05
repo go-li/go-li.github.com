@@ -121,14 +121,16 @@ body = document.getElementById("code").value;
         data: {'version': 2, 'body': body, 'compiler':compiler},
         dataType: 'json',
    success: function(data, textStatus, request){
+	if (compiler!=0)
 	idfunc(JSON.parse(request.responseText)._id);
    },
    error: function (request, textStatus, errorThrown) {
+	if (compiler!=0)
 	idfunc(JSON.parse(request.responseText)._id);
    }
  });
-
-
+if (compiler == 0)
+	playing.Stop();
 
     }
   };
@@ -386,6 +388,7 @@ goPlaygroundOptions({});
     }
     function sharun() {
       $(opts.outputEl).fadeIn();
+//      loading();
 	var val = document.getElementById('compiler').value;
 
 	document.getElementById('compiler').value =0;
