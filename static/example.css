@@ -64,13 +64,9 @@ div.play .output {
   color: #fff;
 }
 div.play .buttons {
-  float: right;
-  padding: 8px 0 8px 0 !important;
-  margin: 10px !important;
-  text-align: right;
   position:absolute;
-
-  right:30px;
+  top: 20px;
+  right: 30px;
 }
 div.play .buttons a {
   border: 0px solid #666 !important;
