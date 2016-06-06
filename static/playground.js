@@ -430,7 +430,7 @@ goPlaygroundOptions({});
     $(opts.runEl).click(run);
     $(opts.fmtEl).click(fmt);
     $(opts.shareEl).click(sharun);
-    $("#url").bind('copy', sharun);
+    $("#url").focus(sharun);
 
     if (false && opts.shareEl !== null && (opts.shareURLEl !== null || opts.shareRedirect !== null)) {
       var shareURL;
