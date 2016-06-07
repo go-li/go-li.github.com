@@ -58,6 +58,7 @@ div.play .input textarea {
 div.play .input,
 div.play .output {
   border: 1px solid #333;
+  border-right: 0px;
 }
 div.play .output {
   background-color: #333;
