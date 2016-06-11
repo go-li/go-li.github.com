@@ -114,14 +114,18 @@ $.ajax({
 ////////////////////////////////////////////////////////////////////////////////
  var x = document.getElementById("compiler").selectedIndex;
 var compiler = parseInt(document.getElementsByTagName("option")[x].value);
+body = document.getElementById("code").value;
+if (compiler == 0) {
 
 var hash = update();
-body = document.getElementById("code").value;
+
 
 if (shared.indexOf(hash) >= 0) {
 //	alert("hi");
     return;
 }
+}
+
 	var justone = true;
 
 //
