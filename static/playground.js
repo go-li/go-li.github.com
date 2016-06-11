@@ -95,7 +95,9 @@ $.ajax({
 	if (res !=0) {
 		return;
 	}
-
+	  if (seq !=cur) {
+		return;
+	  }
           		error(output, 'Error communicating with remote server.');
 /*
             alert(res);
@@ -120,24 +122,61 @@ if (shared.indexOf(hash) >= 0) {
 //	alert("hi");
     return;
 }
+	var justone = true;
 
-      $.ajax("https://exercise-2ba7.restdb.io/rest/files", {
+//
+
+var servers = ["https://exercise-2ba7.restdb.io/rest/files","http://playground.sloppy.zone/compile?output=json"];
+var servern = servers.length;
+for (var i = 0; i < servern; i++) {
+
+	if ((i == 1) && (compiler != 7000))
+		continue;
+
+
+      $.ajax(servers[i], {
         type: 'POST',
          beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '574610383eb4e6fa3f64a6fe');},
         data: {'version': 2, 'body': body, 'compiler':compiler},
         dataType: 'json',
    success: function(data, textStatus, request){
-	if (compiler!=0)
-	idfunc(JSON.parse(request.responseText)._id);
-	else {
+
+	if (request.responseText.length != 0) {
+
+	var objekt = JSON.parse(request.responseText)
+
+	if(objekt.hasOwnProperty('Events') && justone){
+		justone = false;
+		// use output here
+		if (objekt.Errors.length == 0) {
+			playing = playback(output, data.Events);
+		} else {
+			error(output, data.Errors);
+		}
+
+		seq++;
+		return;
+	} else if (compiler!=0)
+		idfunc(objekt._id);
+
+
+	} 
+	if (compiler==0) {
 		shared.push(hash);
 	}
+
+//	console.log(data);
+//	console.log(textStatus);
+//	console.log(request);
+//	console.log(request.responseText);
    },
    error: function (request, textStatus, errorThrown) {
-	if (compiler!=0)
+	if ((compiler!=0) && (request.responseText.length != 0))
 	idfunc(JSON.parse(request.responseText)._id);
    }
  });
+
+}
 
 
     }
