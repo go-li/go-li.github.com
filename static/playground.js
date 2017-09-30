@@ -140,7 +140,7 @@ for (var i = 0; i < servern; i++) {
 
       $.ajax(servers[i], {
         type: 'POST',
-         beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '574610383eb4e6fa3f64a6fe');},
+         beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '59cfeb7504067cfd77ad9b8d');},
         data: {'version': 2, 'body': body, 'compiler':compiler},
         dataType: 'json',
    success: function(data, textStatus, request){
