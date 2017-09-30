@@ -130,7 +130,7 @@ if (shared.indexOf(hash) >= 0) {
 
 //
 
-var servers = ["https://exercise-2ba7.restdb.io/rest/files","http://playground.sloppy.zone/compile?output=json"];
+var servers = ["https://queue1-83fb.restdb.io/rest/files"/*,"http://playground.sloppy.zone/compile?output=json"*/];
 var servern = servers.length;
 for (var i = 0; i < servern; i++) {
 
