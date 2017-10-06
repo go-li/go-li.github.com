@@ -76,8 +76,8 @@ $.ajax({
     "x-apikey": "59d7b8f016d89bb7783291a4",
     "cache-control": "no-cache"
   },
-	dataType: "jsonp",
-        jsonpCallback: 'jscallback',
+//	dataType: "jsonp",
+  //      jsonpCallback: 'jscallback',
         success: function(data) {
 	  if (seq !=cur) {
 		return;
