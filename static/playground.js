@@ -88,7 +88,10 @@ $.ajax({
 	  }
           if (seq != cur) return;
           if (!data) return;
-	 if (data.Response.Hash != coolhash) return;
+	 if (data.Response.Hash.substring(0, 30) != coolhash.substring(0, 30)) {
+		 alert(data.Response.Hash);
+		 alert(coolhash);
+		 return; }
           if (playing != null) playing.Stop();
           if (data.Response.Errors) {
             error(output, data.Response.Errors);
