@@ -88,7 +88,7 @@ $.ajax({
           if (seq != cur) return;
           if (!data) return;
           if (playing != null) playing.Stop();
-          if (data.Errors) {
+          if (data.Response.Errors) {
             error(output, data.Response.Errors);
             res|= 1<<i;
           } else {
