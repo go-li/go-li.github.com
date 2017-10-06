@@ -49,9 +49,9 @@ $.ajax({
 
     });
     function update() {
-	var ret = sha256(document.getElementById("code").value).substring(0,8)
+	var ret = sha256(document.getElementById("code").value)
 		document.getElementById("url").value =
-		"http://go-li.github.io/test.html#" + ret
+		"http://go-li.github.io/test.html#" + ret.substring(0,12)
 		;
 	return ret;
     }
