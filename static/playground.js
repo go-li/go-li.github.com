@@ -89,10 +89,10 @@ $.ajax({
           if (!data) return;
           if (playing != null) playing.Stop();
           if (data.Errors) {
-            error(output, data.Errors);
+            error(output, data.Response.Errors);
             res|= 1<<i;
           } else {
-          playing = playback(output, data.Events);
+          playing = playback(output, data.Response.Events);
             res|= 1<<i;
 //            alert(data.success);
           }
