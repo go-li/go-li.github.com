@@ -75,7 +75,7 @@ $.ajax({
     "content-type": "application/json",
     "x-apikey": "59d7b8f016d89bb7783291a4",
     "cache-control": "no-cache"
-  }
+  },
 	dataType: "jsonp",
         jsonpCallback: 'jscallback',
         success: function(data) {
