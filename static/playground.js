@@ -63,14 +63,14 @@ function HTTPTransport() {
 		return;
 	}
 		
-        var hash = update();
+        var coolhash = update();
 	
 
 
 $.ajax({
 	 async: true,
   crossDomain: true,
-  url: "https://queue2-9029.restdb.io/rest/response/59d7dbc8a10f1169000795"+hash.substring(0, 2),
+  url: "https://queue2-9029.restdb.io/rest/response/59d7dbc8a10f1169000795"+coolhash.substring(0, 2),
   method: "GET",
   headers: {
     "content-type": "application/json",
@@ -88,6 +88,7 @@ $.ajax({
 	  }
           if (seq != cur) return;
           if (!data) return;
+	 if (data.Response.Hash != coolhash) return;
           if (playing != null) playing.Stop();
           if (data.Response.Errors) {
             error(output, data.Response.Errors);
