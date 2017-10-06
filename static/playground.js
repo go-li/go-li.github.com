@@ -62,10 +62,21 @@ function HTTPTransport() {
 	if (res !=0) {
 		return;
 	}
+		
+
+
 
 $.ajax({
-        url: "http://www.trepstar.com/TrepStarFTP/"+id+".js",
-        dataType: "jsonp",
+	 async: true,
+  crossDomain: true,
+  url: "https://queue2-9029.restdb.io/rest/response/59d7dbc8a10f116900079500",
+  method: "GET",
+  headers: {
+    "content-type": "application/json",
+    "x-apikey": "59d7b8f016d89bb7783291a4",
+    "cache-control": "no-cache"
+  }
+	dataType: "jsonp",
         jsonpCallback: 'jscallback',
         success: function(data) {
 	  if (seq !=cur) {
