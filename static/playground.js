@@ -51,7 +51,7 @@ function HTTPTransport() {
 	var res = 0;
 
 	var i = 0;
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < 20; i++) {
 
 	setTimeout(function(){
 
@@ -64,7 +64,7 @@ function HTTPTransport() {
 	}
 
 $.ajax({
-        url: "http://www.trepstar.com/TrepStarFTP/"+id+".js",
+        url: "http://example.com/TrepStarFTP/"+id+".js",
         dataType: "jsonp",
         jsonpCallback: 'jscallback',
         success: function(data) {
