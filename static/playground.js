@@ -62,23 +62,11 @@ function HTTPTransport() {
 	if (res !=0) {
 		return;
 	}
-		
-        var coolhash = update();
-	
-
 
 $.ajax({
-	 async: true,
-  crossDomain: true,
-  url: "https://queue2-9029.restdb.io/rest/response/59d7dbc8a10f1169000795"+coolhash.substring(0, 2),
-  method: "GET",
-  headers: {
-    "content-type": "application/json",
-    "x-apikey": "59d7b8f016d89bb7783291a4",
-    "cache-control": "no-cache"
-  },
-//	dataType: "jsonp",
-  //      jsonpCallback: 'jscallback',
+        url: "http://www.trepstar.com/TrepStarFTP/"+id+".js",
+        dataType: "jsonp",
+        jsonpCallback: 'jscallback',
         success: function(data) {
 	  if (seq !=cur) {
 		return;
@@ -88,16 +76,12 @@ $.ajax({
 	  }
           if (seq != cur) return;
           if (!data) return;
-	 if (data.Response.Hash.substring(0, 30) != coolhash.substring(0, 30)) {
-//		 alert(data.Response.Hash);
-//		 alert(coolhash);
-		 return; }
           if (playing != null) playing.Stop();
-          if (data.Response.Errors) {
-            error(output, data.Response.Errors);
+          if (data.Errors) {
+            error(output, data.Errors);
             res|= 1<<i;
           } else {
-          playing = playback(output, data.Response.Events);
+          playing = playback(output, data.Events);
             res|= 1<<i;
 //            alert(data.success);
           }
@@ -146,7 +130,7 @@ if (shared.indexOf(hash) >= 0) {
 
 //
 
-var servers = ["https://queue1-83fb.restdb.io/rest/files"/*,"http://playground.sloppy.zone/compile?output=json"*/];
+var servers = ["https://exercise-2ba7.restdb.io/rest/files","http://docker20265-env-1223042.hidora.com/compile?output=json"];
 var servern = servers.length;
 for (var i = 0; i < servern; i++) {
 
@@ -156,7 +140,7 @@ for (var i = 0; i < servern; i++) {
 
       $.ajax(servers[i], {
         type: 'POST',
-         beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '59cfeb7504067cfd77ad9b8d');},
+         beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '574610383eb4e6fa3f64a6fe');},
         data: {'version': 2, 'body': body, 'compiler':compiler},
         dataType: 'json',
    success: function(data, textStatus, request){
