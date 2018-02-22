@@ -130,7 +130,7 @@ if (shared.indexOf(hash) >= 0) {
 
 //
 
-var servers = ["https://exercise-2ba7.restdb.io/rest/files","http://docker20265-env-1223042.hidora.com/compile?output=json"];
+var servers = ["https://exercise-2ba7.restdb.io/rest/files","http://docker20265-env-1223042.hidora.com/compile"];
 var servern = servers.length;
 for (var i = 0; i < servern; i++) {
 
