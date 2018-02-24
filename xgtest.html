@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>Generics test</title>
+
+<script src="xgtest.js" type="application/javascript"></script>
+<script>
+function validateForm() {
+    var x = document.forms["myForm"]["code"].value;
+    if (x == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+	var main = window.Process;
+
+	uint=new Uint8Array(x.length);
+	for(var i=0,j=x.length;i<j;++i){
+	  uint[i]=x.charCodeAt(i);
+	}
+
+
+	var buf = main.process(uint);
+
+	var string = new TextDecoder("utf-8").decode(buf);
+
+
+	document.forms["myForm"]["code"].value = string;
+
+	return false;
+}
+
+</script>
+</head>
+<body>
+
+<form name="myForm"  onsubmit="return validateForm();" action="#" method="post">
+<textarea name="code" style="width:90%; height:90%"></textarea>
+<input type="submit" />
+</form>
+
+</body>
+</html>
