@@ -7,7 +7,7 @@
 function validateForm() {
     var x = document.forms["myForm"]["code"].value;
     if (x == "") {
-        alert("Name must be filled out");
+        alert("Code must be filled out");
         return false;
     }
 	var main = window.Process;
@@ -17,15 +17,14 @@ function validateForm() {
 	  uint[i]=x.charCodeAt(i);
 	}
 
-
-	var buf = main.process(uint);
-
+	var buf;
+	try {
+	buf = main.process(uint);
 	var string = new TextDecoder("utf-8").decode(buf);
-
-
 	document.forms["myForm"]["code"].value = string;
-
+	} finally{
 	return false;
+	}
 }
 
 </script>
