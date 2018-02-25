@@ -3,7 +3,7 @@
 <title>Generics test</title>
 
 <script src="xgtest.js" type="application/javascript"></script>
-<script>
+<script type="text/javascript">
 function validateForm() {
     var x = document.forms["myForm"]["code"].value;
     if (x == "") {
@@ -31,7 +31,7 @@ function validateForm() {
 </head>
 <body>
 
-<form name="myForm"  onsubmit="return validateForm();" action="#" method="post">
+<form name="myForm"  onSubmit="return validateForm();" action="#" method="post">
 <textarea name="code" style="width:90%; height:90%"></textarea>
 <input type="submit" />
 </form>
