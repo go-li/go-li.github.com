@@ -1,6 +1,9 @@
 <html>
 <head>
 <title>Generics test</title>
+    <meta charset="utf-8" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script src="xgtest.js" type="application/javascript"></script>
 <script type="text/javascript">
@@ -10,6 +13,12 @@ function validateForm() {
         alert("Code must be filled out");
         return false;
     }
+
+    document.forms["myForm"]["backup"].value = x;
+    document.getElementById("undo").innerHTML = "Undo";
+    document.getElementById("run").removeAttribute("disabled");
+    document.getElementById("codepad").setAttribute("style","height:90%");
+
 	var main = window.Process;
 
 	uint=new Uint8Array(x.length);
@@ -26,15 +35,278 @@ function validateForm() {
 	return false;
 	}
 }
+function swap() {
+    document.getElementById("codepad").setAttribute("style","height:90%");
 
+    if (document.getElementById("undo").innerHTML != "Redo") {
+        document.getElementById("undo").innerHTML = "Redo";
+        document.getElementById("run").setAttribute("disabled","disabled");
+
+    } else {
+        document.getElementById("undo").innerHTML = "Undo";
+        document.getElementById("run").removeAttribute("disabled");
+    }
+
+    var x = document.forms["myForm"]["code"].value;
+    document.forms["myForm"]["code"].value = document.forms["myForm"]["backup"].value;
+    document.forms["myForm"]["backup"].value = x;
+}
+var seq = 0;
+function runcode(body, output, options) {
+      document.getElementById("codepad").setAttribute("style","height:50%");
+      seq++;
+      var cur = seq;
+      var playing;
+////////////////////////////////////////////////////////////////////////////////
+	var idfunc = function idfunc (id) {
+	var res = 0;
+
+
+	setTimeout(function(){
+	if (res !=0) {
+		return;
+	}
+	  if (seq !=cur) {
+		return;
+	  }
+          		error(output, 'Error communicating with remote server.');
+/*
+            alert(res);
+*/
+	}, i*i*400);
+
+      return {
+        Kill: function() {
+          if (playing != null) playing.Stop();
+          output({Kind: 'end', Body: 'killed'});
+        }
+      };
+	}
+////////////////////////////////////////////////////////////////////////////////
+output = function(a){
+PlaygroundOutput(document.getElementById("out"))(a)
+}
+body = document.getElementById("code").value;
+
+
+	var justone = true;
+
+//
+
+var servers = ["https://demo.upper.io/compile"];
+var servern = servers.length;
+for (var i = 0; i < servern; i++) {
+
+
+
+
+      $.ajax(servers[i], {
+        type: 'POST',
+//         beforeSend: function(xhr){xhr.setRequestHeader('x-apikey', '574610383eb4e6fa3f64a6fe');},
+        data: {'version': 2, 'body': body},
+        dataType: 'json',
+   success: function(data, textStatus, request){
+
+	if (request.responseText.length != 0) {
+
+	var objekt = JSON.parse(request.responseText)
+
+	if(objekt.hasOwnProperty('Events') && justone){
+		justone = false;
+		// use output here
+		if (objekt.Errors.length == 0) {
+			playing = playback(output, data.Events);
+		} else {
+			error(output, data.Errors);
+		}
+
+		seq++;
+		return;
+	} else if (compiler!=0)
+		idfunc(objekt._id);
+
+
+	} 
+	if (compiler==0) {
+		shared.push(hash);
+	}
+
+//	console.log(data);
+//	console.log(textStatus);
+//	console.log(request);
+//	console.log(request.responseText);
+   },
+   error: function (request, textStatus, errorThrown) {
+	if ((compiler!=0) && (request.responseText.length != 0))
+	idfunc(JSON.parse(request.responseText)._id);
+   }
+ });
+
+}
+
+    }
+
+  function error(output, msg) {
+    output({Kind: 'start'});
+    output({Kind: 'stderr', Body: msg});
+    output({Kind: 'end'});
+  }
+
+  function playback(output, events) {
+    var timeout;
+    output({Kind: 'start'});
+    function next() {
+      if (!events || events.length === 0) {
+        output({Kind: 'end'});
+        return;
+      }
+      var e = events.shift();
+      if (e.Delay === 0) {
+        output({Kind: 'stdout', Body: e.Message});
+        next();
+        return;
+      }
+      timeout = setTimeout(function() {
+        output({Kind: 'stdout', Body: e.Message});
+        next();
+      }, e.Delay / 1000000);
+    }
+    next();
+    return {
+      Stop: function() {
+        clearTimeout(timeout);
+      }
+    }
+  }
+
+function PlaygroundOutput(el) {
+  'use strict';
+
+  return function(write) {
+    if (write.Kind == 'start') {
+      el.innerHTML = '';
+      return;
+    }
+
+    var cl = 'system';
+    if (write.Kind == 'stdout' || write.Kind == 'stderr')
+      cl = write.Kind;
+
+    var m = write.Body;
+    if (write.Kind == 'end')
+      m = '\nProgram exited' + (m?(': '+m):'.');
+
+    if (m.indexOf('IMAGE:') === 0) {
+      // TODO(adg): buffer all writes before creating image
+      var url = 'data:image/png;base64,' + m.substr(6);
+      var img = document.createElement('img');
+      img.src = url;
+      el.appendChild(img);
+      return;
+    }
+
+    // ^L clears the screen.
+    var s = m.split('\x0c');
+    if (s.length > 1) {
+      el.innerHTML = '';
+      m = s.pop();
+    }
+
+    m = m.replace(/&/g, '&amp;');
+    m = m.replace(/</g, '&lt;');
+    m = m.replace(/>/g, '&gt;');
+
+    var needScroll = (el.scrollTop + el.offsetHeight) == el.scrollHeight;
+
+    var span = document.createElement('span');
+    span.className = cl;
+    span.innerHTML = m;
+    el.appendChild(span);
+
+    if (needScroll)
+      el.scrollTop = el.scrollHeight - el.offsetHeight;
+  }
+}
+
+    window.sync = function(e){
+            var textarea = document.getElementById("lines");
+            var source   = document.getElementById("code");
+            textarea.scrollTop = source.scrollTop;
+        }
+
+        window.populate = function populate(){
+            if(populate.started){
+                return;
+            }
+
+            populate.started = true;
+            var textarea = document.getElementById("lines");
+            var str = '';
+            for(var i=1;i < 1000;i++){
+                str = str + (i +'\r\n');
+            }
+            textarea.value = str;
+        }
 </script>
+<style type="text/css">
+.wrap {
+  width:100%;
+  background-color: #333;
+  overflow:hidden;
+  overflow-y: auto;
+  height: 40%;
+  white-space: pre;
+}
+.output {
+  border: 1px solid #333;
+  border-right: 0px;
+}
+.output {
+  background-color: #333;
+  color: #fff;
+}
+.output .stderr {
+  color: #e00;
+}
+.output .system {
+  color: #999;
+}
+.output {
+  border-top: none !important;
+  float:left;
+  padding: 10px !important;
+  height: 14vh !important;
+
+}
+.output span {
+display:block;
+}
+</style>
 </head>
-<body>
+<body onload="javascript:populate()">
 
 <form name="myForm"  onSubmit="return validateForm();" action="#" method="post">
-<textarea name="code" style="width:90%; height:90%"></textarea>
+
+
+<div id="codepad" style="height:90%">
+<textarea 
+    style="width:3em;overflow:hidden;height:100%;resize: none;text-align:right;" 
+    readonly="true" 
+    id="lines"></textarea>
+<textarea 
+    style="width:95%; height:100%;resize: none;"
+    id="code" 
+    onclick="javascript:populate()"
+    onscroll="javascript:sync();"></textarea>
+</div> 
+<input type="hidden" name="backup" id="backup" />
 <input type="submit" />
+<button onclick="javascript:swap()" type="button" id="undo">Undo</button>
+<button onclick="javascript:runcode()" type="button" id="run" disabled="disabled">Run in playground</button>
 </form>
+<div class="wrap">  <div class="output" id="out"></div>
+
+</div>
 
 </body>
 </html>
