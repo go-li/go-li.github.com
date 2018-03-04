@@ -13,11 +13,7 @@ function validateForm() {
         alert("Code must be filled out");
         return false;
     }
-
-    document.forms["myForm"]["backup"].value = x;
-    document.getElementById("undo").innerHTML = "Undo";
-    document.getElementById("run").removeAttribute("disabled");
-    document.getElementById("codepad").setAttribute("style","height:90%");
+	    document.forms["myForm"]["backup"].value = x;
 
 	var main = window.Process;
 
@@ -30,13 +26,30 @@ function validateForm() {
 	try {
 	buf = main.process(uint);
 	var string = new TextDecoder("utf-8").decode(buf);
+	if (string.charAt(0) == '[') {
+
+		output = function(a){
+		PlaygroundOutput(document.getElementById("out"))(a)
+		}
+		startclr(output)
+		var myObject = JSON.parse(string);
+		for (i = 0; i < myObject.length; ++i) {
+			warning(output, myObject[i])
+		}
+		return false;
+	}
 	document.forms["myForm"]["code"].value = string;
 	} finally{
+
+
+	    document.getElementById("undo").innerHTML = "Undo";
+	    document.getElementById("run").removeAttribute("disabled");
+	    document.getElementById("codepad").setAttribute("style","height:80%");
 	return false;
 	}
 }
 function swap() {
-    document.getElementById("codepad").setAttribute("style","height:90%");
+    document.getElementById("codepad").setAttribute("style","height:80%");
 
     if (document.getElementById("undo").innerHTML != "Redo") {
         document.getElementById("undo").innerHTML = "Redo";
@@ -57,32 +70,6 @@ function runcode(body, output, options) {
       seq++;
       var cur = seq;
       var playing;
-////////////////////////////////////////////////////////////////////////////////
-	var idfunc = function idfunc (id) {
-	var res = 0;
-
-
-	setTimeout(function(){
-	if (res !=0) {
-		return;
-	}
-	  if (seq !=cur) {
-		return;
-	  }
-          		error(output, 'Error communicating with remote server.');
-/*
-            alert(res);
-*/
-	}, i*i*400);
-
-      return {
-        Kill: function() {
-          if (playing != null) playing.Stop();
-          output({Kind: 'end', Body: 'killed'});
-        }
-      };
-	}
-////////////////////////////////////////////////////////////////////////////////
 output = function(a){
 PlaygroundOutput(document.getElementById("out"))(a)
 }
@@ -122,29 +109,29 @@ for (var i = 0; i < servern; i++) {
 
 		seq++;
 		return;
-	} else if (compiler!=0)
-		idfunc(objekt._id);
+	}
 
 
 	} 
-	if (compiler==0) {
-		shared.push(hash);
-	}
 
 //	console.log(data);
 //	console.log(textStatus);
 //	console.log(request);
 //	console.log(request.responseText);
-   },
-   error: function (request, textStatus, errorThrown) {
-	if ((compiler!=0) && (request.responseText.length != 0))
-	idfunc(JSON.parse(request.responseText)._id);
    }
  });
 
 }
 
     }
+
+  function startclr(output) {
+    output({Kind: 'start'});
+  }
+
+  function warning(output, msg) {
+    output({Kind: 'stdwarn', Body: msg});
+  }
 
   function error(output, msg) {
     output({Kind: 'start'});
@@ -189,7 +176,7 @@ function PlaygroundOutput(el) {
     }
 
     var cl = 'system';
-    if (write.Kind == 'stdout' || write.Kind == 'stderr')
+    if (write.Kind == 'stdout' || write.Kind == 'stderr' || write.Kind == 'stdwarn')
       cl = write.Kind;
 
     var m = write.Body;
@@ -228,16 +215,32 @@ function PlaygroundOutput(el) {
   }
 }
 
+
+
     window.sync = function(e){
             var textarea = document.getElementById("lines");
             var source   = document.getElementById("code");
             textarea.scrollTop = source.scrollTop;
+
         }
 
         window.populate = function populate(){
+
             if(populate.started){
                 return;
             }
+
+
+
+		var textareas = document.getElementById("code");
+		textareas.onkeydown = function tab(e) {
+		if(e.keyCode==9 || e.which==9){
+			    e.preventDefault();
+			    var s = this.selectionStart;
+			    this.value = this.value.substring(0,this.selectionStart) + "\t" + this.value.substring(this.selectionEnd);
+			    this.selectionEnd = s+1; 
+			}
+		}
 
             populate.started = true;
             var textarea = document.getElementById("lines");
@@ -271,6 +274,9 @@ function PlaygroundOutput(el) {
 .output .system {
   color: #999;
 }
+.output .stdwarn {
+  color: #00ffff;
+}
 .output {
   border-top: none !important;
   float:left;
@@ -288,16 +294,18 @@ display:block;
 <form name="myForm"  onSubmit="return validateForm();" action="#" method="post">
 
 
-<div id="codepad" style="height:90%">
+<div id="codepad" style="height:80%">
 <textarea 
     style="width:3em;overflow:hidden;height:100%;resize: none;text-align:right;" 
     readonly="true" 
     id="lines"></textarea>
 <textarea 
     style="width:95%; height:100%;resize: none;"
-    id="code" 
+    id="code"
     onclick="javascript:populate()"
-    onscroll="javascript:sync();"></textarea>
+    onscroll="javascript:sync();">package main
+func main(){
+}</textarea>
 </div> 
 <input type="hidden" name="backup" id="backup" />
 <input type="submit" />
