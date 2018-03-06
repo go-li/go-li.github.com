@@ -26,12 +26,11 @@ function validateForm() {
 	try {
 	buf = main.process(uint);
 	var string = new TextDecoder("utf-8").decode(buf);
+	output = function(a){
+	PlaygroundOutput(document.getElementById("out"))(a)
+	}
+	startclr(output)
 	if (string.charAt(0) == '[') {
-
-		output = function(a){
-		PlaygroundOutput(document.getElementById("out"))(a)
-		}
-		startclr(output)
 		var myObject = JSON.parse(string);
 		for (i = 0; i < myObject.length; ++i) {
 			warning(output, myObject[i])
